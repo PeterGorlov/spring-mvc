@@ -15,12 +15,40 @@ public class FirstController {
                         @RequestParam(value = "surname", required = false) String surname,
                         Model model) {
 
-        model.addAttribute("message","Hello :" + name + " " + surname);
+        model.addAttribute("message", "Hello :" + name + " " + surname);
 
         return "first/hello";
     }
+
     @GetMapping("/goodbye")
     public String goodBye() {
         return "first/goodbye";
+    }
+
+    @GetMapping("/calculator")
+    public String calculator(@RequestParam(value = "a", required = false) int a,
+                             @RequestParam(value = "b", required = false) int b,
+                             @RequestParam(value = "action", required = false) String action,
+                             Model model) {
+
+        switch (action) {
+            case  ("addition"):
+                model.addAttribute("message", a + b);;
+                break;
+            case ("subtraction"):
+                model.addAttribute("message", a - b);;
+                break;
+            case ("multiplication"):
+                model.addAttribute("message", a * b);;
+                break;
+            case ("division"):
+                model.addAttribute("message", a / b);;
+                break;
+            default:
+                model.addAttribute("message", "Please enter a valid delimiter ");;
+                break;
+        }
+
+        return "first/calculator";
     }
 }
